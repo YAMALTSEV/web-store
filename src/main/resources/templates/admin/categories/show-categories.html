@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Categories</title>
+</head>
+<body>
+<h2>Categories:</h2>
+<table border="1">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>description</th>
+    <th>image</th>
+  </tr>
+  </thead>
+  <tr th:each="category : ${categories}">
+    <td th:text="${category.id}"></td>
+    <td th:text="${category.name}"></td>
+    <td th:text="${category.description}"></td>
+    <td><img th:src="@{'/images/categories/' + ${category.image.path}}" th:alt="${category.image.path}" th:width="90" th:height="90"></td>
+    <td><a th:href="@{'/admin/categories/update/' + ${category.id}}">Ред.</a></td>
+    <td><a th:href="@{'/admin/categories/delete/' + ${category.id}}">Удалить</a></td>
+  </tr>
+</table>
+<a href="/admin/categories/add">Добавить категорию</a>
+</body>
+</html>

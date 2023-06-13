@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Product</title>
+</head>
+<body>
+  <h2>Вы уверены что ходите удалить этот товар?</h2>
+  <p th:text="@{'Название - ' + ${product.name}}"/>
+  <p th:text="@{'Описание - ' + ${product.description}}"/>
+  <p th:text="@{'Цена - ' + ${product.price}}"/>
+  <p th:text="@{'Дата производства - ' + ${product.productionDate}}"/>
+  <p th:text="@{'Годен до - ' + ${product.expirationDate}}"/>
+  <p th:text="@{'Количество на складе - ' + ${product.stockQuantity}}"/>
+  <p th:text="@{'Категория = ' + ${product.category.name}}"/>
+  <div th:each="image : ${product.images}">
+    <img th:if="image.isMain" th:src="@{'/images/products/' + ${image.path}}" th:alt="@{'/images/products/' + ${image.path}}" width="200" height="200"/>
+  </div>
+  <form method="post" th:action="@{'/admin/products/delete/' + ${product.id}}">
+    <button type="submit">Подтвердить удаление</button>
+  </form>
+</body>
+</html>

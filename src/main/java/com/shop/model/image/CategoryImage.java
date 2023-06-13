@@ -18,4 +18,8 @@ public class CategoryImage {
 
     @Column(name = "path")
     private String path;
+
+    public CategoryImage(String path) {
+        this.path = path;
+    }
 }

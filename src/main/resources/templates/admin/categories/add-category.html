@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Category</title>
+</head>
+<body>
+<h2>Добавить категорию</h2>
+<form action="/admin/categories/add" method="post" th:object="${category}">
+  <label for="name">Название</label>
+  <input type="text" name="name" id="name" th:field="*{name}">
+  <br><br>
+  <label for="description">Описание</label>
+  <textarea id="description" name="description" th:field="*{description}"></textarea>
+  <br><br>
+  <label for="img_path">Путь к изображению</label>
+  <input type="text" id="img_path" name="img_path">
+  <br><br>
+  <button type="submit">Добавить</button>
+</form>
+</body>
+</html>

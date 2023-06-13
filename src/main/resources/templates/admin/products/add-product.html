@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+  <h2>Добавить товар</h2>
+  <form action="/admin/products/add" method="post" th:object="${product}">
+    <label for="name">Название</label>
+    <input type="text" id="name" th:field="*{name}">
+    <br><br>
+    <label for="description">Описание</label>
+    <textarea id="description" th:field="*{description}"></textarea>
+    <br><br>
+    <label for="price">Цена</label>
+    <input type="text" id="price" th:field="*{price}">
+    <br><br>
+    <label for="quantity">Количество</label>
+    <input type="text" id="quantity" th:field="*{stockQuantity}">
+    <br><br>
+    <label for="prod_date">Дата производства</label>
+    <input type="date" id="prod_date" th:field="*{productionDate}">
+    <br><br>
+    <label for="exp_date">Годно до</label>
+    <input type="date" id="exp_date" th:field="*{expirationDate}">
+    <br><br>
+    <select th:field="*{category.id}">
+      <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+    <br><br>
+    <label>Изображения</label>
+    <input type="file" th:field="*{images[0].path}">
+    <input type="radio" name="isMain" th:field="*{images[0].main}" value="true" />
+    <br><br>
+    <button type="submit">Добавить</button>
+  </form>
+</body>
+</html>

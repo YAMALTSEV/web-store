@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Products</title>
+</head>
+<body>
+<h2>Products:</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>description</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>prod_date</th>
+            <th>exp_date</th>
+            <th>category</th>
+            <th>main img</th>
+        </tr>
+    </thead>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.stockQuantity}"></td>
+        <td th:text="${product.productionDate}"></td>
+        <td th:text="${product.expirationDate}"></td>
+        <td th:text="${product.category.name}"></td>
+        <div th:each="image : ${product.images}">
+            <td><img th:if="${image.isMain}" th:src="${image.path}" th:alt="${image.path}"></td>
+        </div>
+        <td><a th:href="@{'/admin/products/update/' + ${product.id}}">Ред.</a></td>
+        <td><a th:href="@{'/admin/products/delete/' + ${product.id}}">Удалить</a></td>
+    </tr>
+</table>
+<a href="/admin/products/add">Добавить товар</a>
+</body>
+</html>

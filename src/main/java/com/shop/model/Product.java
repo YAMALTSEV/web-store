@@ -45,4 +45,11 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private List<ProductImage> images;
+
+    public ProductImage getMainImg() {
+        for (ProductImage image: images) {
+            if (image.isMain()) return image;
+        }
+        return null;
+    }
 }
