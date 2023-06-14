@@ -6,8 +6,10 @@
     <title>Add Product</title>
 </head>
 <body>
+<a href="/admin">Панель администратора</a> <a href="/admin/products">Продукты</a>
   <h2>Добавить товар</h2>
   <form action="/admin/products/add" method="post" th:object="${product}">
+    <input type="hidden" th:field="*{id}">
     <label for="name">Название</label>
     <input type="text" id="name" th:field="*{name}">
     <br><br>
@@ -30,11 +32,17 @@
       <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
     </select>
     <br><br>
-    <label>Изображения</label>
+    <label>Главное изображение</label>
     <input type="file" th:field="*{images[0].path}">
-    <input type="radio" name="isMain" th:field="*{images[0].main}" value="true" />
     <br><br>
-    <button type="submit">Добавить</button>
+    <label>Дополнительные изображения</label>
+    <input type="file" th:field="*{images[1].path}">
+    <input type="file" th:field="*{images[2].path}">
+    <input type="file" th:field="*{images[3].path}">
+    <input type="file" th:field="*{images[4].path}">
+    <br><br>
+    <button type="submit">Добавить/Обновить</button>
   </form>
+
 </body>
 </html>

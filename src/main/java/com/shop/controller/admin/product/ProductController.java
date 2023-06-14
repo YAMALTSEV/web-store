@@ -2,6 +2,7 @@ package com.shop.controller.admin.product;
 
 import com.shop.model.Category;
 import com.shop.model.Product;
+import com.shop.model.image.ProductImage;
 import com.shop.repository.CategoryRepository;
 import com.shop.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String addProduct(Model model) {
+    public String showAddProductFrom(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
         List<Category> categories = categoryRepository.findAll();
@@ -43,12 +44,18 @@ public class ProductController {
 
     @PostMapping("/add")
     public String saveProduct(@ModelAttribute("product") Product product) {
+        product.getImages().get(0).setMain(true);
         productRepository.save(product);
+//        delete from this
+        for (ProductImage img : product.getImages()) {
+            System.out.println(img.getPath() + " : " + img.isMain());
+        }
+//        till this
         return "redirect:/admin/products";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Long productId, Model model) {
+    public String showDeleteProductForm(@PathVariable("id") Long productId, Model model) {
         Optional<Product> product = productRepository.findById(productId);
         if(product.isEmpty()) return "redirect:/admin/products";
         model.addAttribute("product", product.get());
@@ -56,15 +63,17 @@ public class ProductController {
     }
 
     @PostMapping("/delete/{id}")
-    public String confirmDeleteProduct(@PathVariable("id") Long productId) {
+    public String deleteProduct(@PathVariable("id") Long productId) {
         productRepository.deleteById(productId);
         return "redirect:/admin/products";
     }
 
     @GetMapping("/update/{id}")
-    public String updateProduct(@PathVariable("id") Long productId, Model model) {
+    public String showUpdateProductForm(@PathVariable("id") Long productId, Model model) {
         Optional<Product> product = productRepository.findById(productId);
         if(product.isEmpty()) return "redirect:/admin/products";
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("product", product.get());
         return BASE_PATH + "add-product";
     }

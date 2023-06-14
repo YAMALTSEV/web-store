@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete category</title>
+</head>
+<body>
+    <a href="/admin">Панель администратора</a> <a href="/admin/products">Категории</a>
+    <h2>Вы действительно хотите удалить категорию?</h2>
+    <br><br>
+    <a th:text="@{'Название: ' + *{category.name}}"></a>
+    <br><br>
+    <a th:text="@{'Описание: ' + *{category.description}}"></a>
+    <br><br>
+    <img th:src="@{'images/categories/' + *{category.image.path}}" th:alt="*{category.image.path}" width="200" height="200"/>
+    <br><br>
+    <form method="post" th:action="@{'/admin/categories/delete/' + *{category.id}}">
+        <button type="submit">Подтвердить удаление</button>
+    </form>
+</body>
+</html>
